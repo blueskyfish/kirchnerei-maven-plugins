@@ -17,9 +17,11 @@
 	</parent>
 
 	<artifactId>kirchnerei-encrypt-plugin</artifactId>
-	<packaging>jar</packaging>
+	<version>1.0</version>
+	<packaging>maven-plugin</packaging>
 
 	<name>Kirchnerei Encrypt Plugin</name>
+	<url>https://github.com/mulder3/kirchnerei-maven-plugins.git</url>
 	<description>
 		Encrypt maven properties
 	</description>
