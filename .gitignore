@@ -1,0 +1,20 @@
+
+# Jetbrains
+.idea
+*.iml
+*.ipr
+*.iws
+
+
+# Maven
+target/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Java
+*.class
+
+
