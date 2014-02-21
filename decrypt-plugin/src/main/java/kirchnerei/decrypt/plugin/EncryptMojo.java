@@ -10,6 +10,8 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.StringUtils;
@@ -26,6 +28,10 @@ import java.text.MessageFormat;
 import java.util.Enumeration;
 import java.util.Properties;
 
+/**
+ * @describe Lightweight mojo to decrypt project properties
+ */
+@Mojo(name = "process", defaultPhase = LifecyclePhase.INITIALIZE)
 public class EncryptMojo extends AbstractMojo {
 
 	static final String SETTINGS_SECURITY_FILE = "settings-security.xml";
