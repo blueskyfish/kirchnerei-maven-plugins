@@ -8,6 +8,7 @@ package kirchnerei.buildnumber.plugin;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 import java.io.File;
@@ -21,7 +22,7 @@ import java.util.Properties;
 /**
  * kirchnerei buildnumber plugin (equals to ant buildnumber)
  *
- * @author <a href="kirchnerei@gmx.net">Mulder3</a>
+ * @author <a href="mulder3@kirchnerei.de">Mulder3</a>
  * @goal create
  * @requiresProject
  * @threadsafe true
@@ -31,42 +32,29 @@ import java.util.Properties;
 public class BuildNumberMojo extends AbstractMojo {
 
 	public static final String PROPERTY_COMMENT = "This is the build number. Do not change directly";
+
 	/**
 	 * Location of the file.
-	 *
-	 * @parameter expression="${project.build.directory}"
-	 * @required
 	 */
+	@Parameter(defaultValue = "${project.build.directory}", readonly = true, required = true)
 	private File outputDirectory;
 
 	/**
 	 * The name of the file.
-	 *
-	 * @parameter default-value="build.properties"
 	 */
+	@Parameter(defaultValue = "build.properties")
 	private String buildFile;
 
 	/**
 	 * The name of the property value in which the buildnumber will be store.
-	 *
-	 * @parameter default-value="buildnumber"
 	 */
+	@Parameter(defaultValue = "buildnumber")
 	private String propertyName;
 
-	/**
-	 * Flag for changing the buildnumber
-	 *
-	 * @parameter default-value=false
-	 */
+	@Parameter(defaultValue = "false")
 	private boolean increment;
 
-	/**
-	 * The maven project.
-	 *
-	 * @parameter expression="${project}"
-	 * @required
-	 * @readonly
-	 */
+	@Parameter(defaultValue = "${project}", readonly = true, required = true)
 	private MavenProject project;
 
 	public void execute() throws MojoExecutionException {
