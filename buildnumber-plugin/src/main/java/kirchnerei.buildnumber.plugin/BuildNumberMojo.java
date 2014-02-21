@@ -8,6 +8,8 @@ package kirchnerei.buildnumber.plugin;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
@@ -20,15 +22,9 @@ import java.io.OutputStream;
 import java.util.Properties;
 
 /**
- * kirchnerei buildnumber plugin (equals to ant buildnumber)
- *
- * @author <a href="mulder3@kirchnerei.de">Mulder3</a>
- * @goal create
- * @requiresProject
- * @threadsafe true
- * @phase validate
- * @describe Lightweight mojo to create a buildnumber
+ * Kirchnerei BuildNumber Plugin (equals to ant buildnumber)
  */
+@Mojo(name = "create", defaultPhase = LifecyclePhase.GENERATE_RESOURCES)
 public class BuildNumberMojo extends AbstractMojo {
 
 	public static final String PROPERTY_COMMENT = "This is the build number. Do not change directly";
@@ -36,22 +32,26 @@ public class BuildNumberMojo extends AbstractMojo {
 	/**
 	 * Location of the file.
 	 */
-	@Parameter(defaultValue = "${project.build.directory}", readonly = true, required = true)
+	@Parameter(defaultValue = "${project.build.directory}",
+		property = "outputDirectory",
+		readonly = true,
+		required = true)
 	private File outputDirectory;
 
 	/**
 	 * The name of the file.
 	 */
-	@Parameter(defaultValue = "build.properties")
+	@Parameter(defaultValue = "build.properties",
+		property = "buildFile")
 	private String buildFile;
 
 	/**
 	 * The name of the property value in which the buildnumber will be store.
 	 */
-	@Parameter(defaultValue = "buildnumber")
+	@Parameter(defaultValue = "buildnumber", property = "propertyName")
 	private String propertyName;
 
-	@Parameter(defaultValue = "false")
+	@Parameter(defaultValue = "false", property = "increment")
 	private boolean increment;
 
 	@Parameter(defaultValue = "${project}", readonly = true, required = true)
