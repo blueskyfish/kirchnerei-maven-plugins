@@ -124,8 +124,8 @@ public class EncryptMojo extends AbstractMojo {
 	 * @param message the message to log.
 	 */
 	protected void logInfo(final String message) {
-		if (this.getLog().isInfoEnabled()) {
-			this.getLog().info(message);
+		if (getLog().isInfoEnabled()) {
+			getLog().info(message);
 		}
 	}
 
@@ -136,8 +136,8 @@ public class EncryptMojo extends AbstractMojo {
 	 * @param e the exception.
 	 */
 	protected void logError(final String message, final Exception e) {
-		if (this.getLog().isErrorEnabled()) {
-			this.getLog().error(message, e);
+		if (getLog().isErrorEnabled()) {
+			getLog().error(message, e);
 		}
 	}
 
@@ -147,8 +147,8 @@ public class EncryptMojo extends AbstractMojo {
 	 * @param message the message.
 	 */
 	protected void logWarn(final String message) {
-		if (this.getLog().isWarnEnabled()) {
-			this.getLog().warn(message);
+		if (getLog().isWarnEnabled()) {
+			getLog().warn(message);
 		}
 	}
 

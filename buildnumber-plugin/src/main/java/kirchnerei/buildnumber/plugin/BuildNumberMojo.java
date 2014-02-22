@@ -32,9 +32,8 @@ public class BuildNumberMojo extends AbstractMojo {
 	/**
 	 * Location of the file.
 	 */
-	@Parameter(defaultValue = "${project.build.directory}",
+	@Parameter(defaultValue = "${basedir}",
 		property = "outputDirectory",
-		readonly = true,
 		required = true)
 	private File outputDirectory;
 
@@ -63,23 +62,19 @@ public class BuildNumberMojo extends AbstractMojo {
 
 			int buildNumber = readBuildNumberFrom(file);
 			if (buildNumber <= 0) {
-				getLog().info("create new build number with '1'");
+				logInfo("create new build number with '1'");
 				buildNumber = 1;
 			} else {
 				buildNumber++;
-				getLog().info("build number '" + buildNumber + "' will be use");
+				logInfo("build number '" + buildNumber + "' will be use");
 			}
 			writeBuildNumberTo(file, buildNumber);
 			Properties prop = project.getProperties();
 			prop.put(propertyName, String.valueOf(buildNumber));
 		} catch (IOException e) {
-			getLog().error(e);
+			logError("could not handle the build number", e);
 			throw new MojoExecutionException("could not handle the build number", e);
 		}
-	}
-
-	public void setProject(MavenProject project) {
-		this.project = project;
 	}
 
 	int readBuildNumberFrom(File file) throws IOException {
@@ -96,7 +91,7 @@ public class BuildNumberMojo extends AbstractMojo {
 
 	void writeBuildNumberTo(File file, int buildNumber) throws IOException {
 		if (!increment) {
-			getLog().info("no increment the buildnumber.");
+			logInfo("no increment the buildnumber.");
 			return;
 		}
 		if (!file.exists()) {
@@ -104,10 +99,33 @@ public class BuildNumberMojo extends AbstractMojo {
 			parent.mkdirs();
 			file.createNewFile();
 		}
-		getLog().info("store the buildnumber");
+		logInfo("store the buildnumber");
 		OutputStream output = new FileOutputStream(file);
 		Properties prop = new Properties();
 		prop.setProperty(propertyName, String.valueOf(buildNumber));
 		prop.store(output, PROPERTY_COMMENT);
+	}
+
+	/**
+	 * Log info.
+	 *
+	 * @param message the message to log.
+	 */
+	void logInfo(final String message) {
+		if (getLog().isInfoEnabled()) {
+			getLog().info(message);
+		}
+	}
+
+	/**
+	 * Log error.
+	 *
+	 * @param message the message.
+	 * @param e the exception.
+	 */
+	protected void logError(final String message, final Exception e) {
+		if (getLog().isErrorEnabled()) {
+			getLog().error(message, e);
+		}
 	}
 }
