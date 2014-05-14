@@ -3,7 +3,7 @@ Kirchnerei &copy; 2014
 
 # Kirchnerei Decrypt Plugin
 
-Decrypt all properties whose values ​​are encrypted with mvn -ep "password
+Decrypt all properties whose values ​​are encrypted with mvn -ep "password"
 
 
 ## Usage
